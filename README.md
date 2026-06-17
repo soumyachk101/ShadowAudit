@@ -2,7 +2,7 @@
 
 # 🛡️ ShadowAudit
 
-### *Proctoring Integrity Research & Auto-Detection System*
+## *Proctoring Integrity Research & Auto-Detection System*
 
 <p>
   <img src="https://img.shields.io/badge/status-hackathon%20PoC-00e5ff?style=for-the-badge&logo=github&logoColor=black" alt="Status"/>
@@ -12,18 +12,18 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/python-3.14-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/next-16-000000?style=flat-square&logo=next.js&logoColor=white" alt="Next.js"/>
-  <img src="https://img.shields.io/badge/fastapi-0.137-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI"/>
+  <img src="https://img.shields.io/badge/python-3.14.5-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
+  <img src="https://img.shields.io/badge/next-16.2.9-000000?style=flat-square&logo=next.js&logoColor=white" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/fastapi-0.137.1-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI"/>
   <img src="https://img.shields.io/badge/postgres-15+-336791?style=flat-square&logo=postgresql&logoColor=white" alt="Postgres"/>
-  <img src="https://img.shields.io/badge/claude-3.5%20Sonnet-D97757?style=flat-square&logo=anthropic&logoColor=white" alt="Claude"/>
+  <img src="https://img.shields.io/badge/claude-3.5%20Sonnet%2020241022-D97757?style=flat-square&logo=anthropic&logoColor=white" alt="Claude"/>
 </p>
 
 ---
 
 > **What this is, in one line:** A vulnerability-research proof-of-concept that detects a specific class of proctoring-signal tampering in real time, then explains the detection in plain language using Claude.
 >
-> **What this is not:** A tool to bypass any real commercial proctoring product. See [⚠️ Responsible Disclosure](#%EF%B8%8F-responsible-disclosure).
+> **What this is not:** A tool to bypass any real commercial proctoring product. See [⚠️ Responsible Disclosure](#17-responsible-disclosure).
 
 </div>
 
@@ -120,12 +120,12 @@
 ## 📚 Table of Contents
 
 | | | |
-|---|---|---|
+| --- | --- | --- |
 | 🧒 [1. What is ShadowAudit?](#1-what-is-shadowaudit-in-plain-english) | 🏗️ [7. Architecture](#7-architecture) | 📡 [13. API Reference](#13-api-reference) |
-| 🚨 [2. The Problem](#2-the-problem-why-this-matters) | 🔄 [8. Data Flow](#8-data-flow-step-by-step) | 🗄️ [14. Database Schema](#14-database-schema) |
-| 💡 [3. The Solution](#3-the-solution-what-we-built) | 🎬 [9. The Two Modes](#9-the-two-modes-baseline-vs-protected) | 📁 [15. Project Structure](#15-project-structure) |
-| 🎯 [4. User Story](#4-user-story) | 🧠 [10. The AI Layer](#10-the-ai-layer-claude-integration) | 🛠️ [16. Troubleshooting](#16-troubleshooting) |
-| ✨ [5. Features](#5-features-at-a-glance) | 🚀 [11. Getting Started](#11-getting-started) | ⚠️ [17. Responsible Disclosure](#%EF%B8%8F-responsible-disclosure) |
+| 🚨 [2. The Problem](#2-the-problem--why-this-matters) | 🔄 [8. Data Flow](#8-data-flow--step-by-step) | 🗄️ [14. Database Schema](#14-database-schema) |
+| 💡 [3. The Solution](#3-the-solution--what-we-built) | 🎬 [9. The Two Modes](#9-the-two-modes--baseline-vs-protected) | 📁 [15. Project Structure](#15-project-structure) |
+| 🎯 [4. User Story](#4-user-story) | 🧠 [10. The AI Layer](#10-the-ai-layer--claude-integration) | 🛠️ [16. Troubleshooting](#16-troubleshooting) |
+| ✨ [5. Features](#5-features-at-a-glance) | 🚀 [11. Getting Started](#11-getting-started) | ⚠️ [17. Responsible Disclosure](#17-responsible-disclosure) |
 | 📐 [6. Scope Lock](#6-scope-lock) | 🧪 [12. Run the Demo](#12-run-the-demo) | 📜 [18. License & Credits](#18-license--credits) |
 
 ---
@@ -156,7 +156,7 @@ Online proctoring tools (used for certifications, university exams, remote job a
 Every one of these signals can be **spoofed** with off-the-shelf tools:
 
 | Signal | Spoof technique | What the proctor sees |
-|---|---|---|
+| --- | --- | --- |
 | Display count | Virtual display driver | "1 display" (lie) |
 | Tab focus | Focus-event suppression | "Always focused" (lie) |
 | Hardware ID | ID masking | "Same machine" (lie) |
@@ -209,7 +209,7 @@ flowchart TB
 ```
 
 1. **Mock exam + spoof surface** — a tiny web-based "exam" that *can* be fooled by a display-config spoof (just like a real proctoring tool).
-2. **Detection engine** — runs on the same signal a real proctoring tool would receive, but cross-checks it against a secondary signal that the spoof doesn't account for.
+2. **Detection engine** — runs on the same signal a real proctoring tool would receive, but cross-checks it against a secondary signal that the spoof doesn't account for. In this PoC, the engine's only branching rule is `if payload.mode == "protected"` (see `backend/main.py`); the more sophisticated cross-signal correlation described in `shadowaudit.md` is the *design intent* and is left as a deliberate PoC simplification.
 3. **Claude-powered translation** — when the engine fires, Claude writes a short, neutral, non-alarmist sentence describing what was detected, for an admin who is not a security expert.
 
 ---
@@ -225,7 +225,7 @@ This is the entire product in one sentence. Every screen, every endpoint, and ev
 ## 5. Features at a Glance
 
 | Feature | Description |
-|---|---|
+| --- | --- |
 | 🎚️ **Visible mode toggle** | Baseline vs Protected — judges can *see* you flip a switch, not just trust a verbal claim. |
 | ⚡ **Real-time WebSocket** | Sub-2-second detection latency from tamper to dashboard alert. |
 | 🧠 **Claude explanations** | Plain-language, 1-2 sentence alerts. Tone-neutral, no jargon, no accusation. |
@@ -233,6 +233,8 @@ This is the entire product in one sentence. Every screen, every endpoint, and ev
 | 🪟 **Inline alert card** | Slides in from the right with a 3px red border. No jarring modals. |
 | 🛡️ **Offline-tolerant** | Works on a local network — no dependency on judge WiFi or external services (mock AI mode). |
 | 🧱 **No bypass in public** | Tamper-trigger code can be gated behind an env var; default builds are detection-only. |
+
+> ⚠️ **Honest framing:** This PoC ships a "Trigger Tamper" button directly in the candidate UI (`/exam`) and does *not* ship a feature-flag gate by default. Treat that button as a demo control, not production code. See [⚠️ Responsible Disclosure](#17-responsible-disclosure).
 
 ---
 
@@ -243,7 +245,7 @@ We deliberately limited the demo to **one** specific class of tampering:
 > **Secondary display / virtual monitor spoofing.**
 
 | In scope ✅ | Out of scope ❌ |
-|---|---|
+| --- | --- |
 | Display-config spoofing | Tab-switching detection |
 | Cross-correlation of 2 signals | Gaze tracking |
 | Plain-language explanation | Audio spoofing |
@@ -267,7 +269,7 @@ flowchart TB
     subgraph Backend["⚙️  Backend  (FastAPI · Python 3.14 · async)"]
         R["🌐 HTTP Routes<br/>POST /sessions/{id}/signals<br/>PATCH /sessions/{id}/mode"]
         W["🔌 WebSocket Hub<br/>/ws/sessions/{id}"]
-        D["🔍 Detection Layer<br/>if mode == protected"]
+        D["🔍 Detection Layer<br/>if payload.mode == protected"]
         AI["🧠 Claude Service<br/>generate_alert_explanation()"]
     end
 
@@ -276,7 +278,7 @@ flowchart TB
     end
 
     subgraph External["☁️  External"]
-        Claude["Anthropic Claude API<br/>model: claude-3-5-sonnet"]
+        Claude["Anthropic Claude API<br/>model: claude-3-5-sonnet-20241022"]
     end
 
     E -->|POST signal| R
@@ -300,7 +302,7 @@ flowchart TB
 ### Component Cheat Sheet
 
 | Layer | Tech | Files | Why |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Frontend** | Next.js 16 (App Router), React 19, TypeScript | `frontend/src/app/` | Two views: candidate (mock exam) + admin (live dashboard) |
 | **Backend** | FastAPI 0.137, async/await | `backend/main.py` | HTTP routes + WebSocket hub + detection trigger |
 | **Database** | PostgreSQL via `databases` + `asyncpg` | `backend/database.py` | Three tables: `sessions`, `signal_events`, `alerts` |
@@ -335,7 +337,7 @@ sequenceDiagram
     ADM->>API: PATCH /sessions/{id}/mode<br/>{mode: "protected"}
     API->>DB: UPDATE sessions.mode
 
-    Note over U,ADM: Same tamper, again
+    Note over U,ADM: Same tamper, again (payload.mode=protected)
     U->>API: POST signal (protected)
     API->>DB: INSERT signal_events
     API->>AI: generate_alert_explanation(...)
@@ -349,9 +351,9 @@ sequenceDiagram
 ### Two States, One Tamper
 
 | Mode | What happens to the same signal | Visible result |
-|---|---|---|
-| 🔵 **Baseline** | Stored in DB, broadcast as `signal_received` | Cyan log line. Status stays green. *Nothing else.* |
-| 🟢 **Protected** | Same as above **plus**: Claude call, `alerts` row, `alert_fired` broadcast | Red log line. Alert card slides in. Status pill turns red. |
+| --- | --- | --- |
+| 🔵 **Baseline** | Stored in DB, broadcast as `signal_received` | Cyan log line `Incoming signal stream: <type>`. Status stays green. *Nothing else.* |
+| 🟢 **Protected** | Same as above **plus**: Claude call, `alerts` row, `alert_fired` broadcast | Red log line `ANOMALY DETECTED: <type> [Confidence: …]`. Alert card slides in. Status pill turns red. |
 
 > 💡 **That's the whole pitch in one comparison:** same action, two outcomes, because of one switch.
 
@@ -469,6 +471,7 @@ The backend sends every alert through a single, locked-down system prompt:
 > *"You are an integrity-alert assistant for an exam proctoring dashboard. You receive a structured signal event describing an anomaly detected during a proctored session. Your job is to explain it in 1-2 sentences to a non-technical exam administrator.*
 >
 > *Rules:*
+>
 > - *Never speculate about the candidate's intent (e.g., do not say 'the candidate was cheating'). Describe only what the signal shows.*
 > - *Never explain the underlying bypass mechanism in technical detail. Describe the category only (e.g., 'a secondary display was detected that wasn't present at session start').*
 > - *Keep tone neutral and factual, not accusatory.*
@@ -507,7 +510,7 @@ If `ANTHROPIC_API_KEY` is missing or set to `"mock"`, the service returns a dete
 flowchart LR
     A[Signal fired] --> B{ANTHROPIC_API_KEY?}
     B -->|missing or "mock"| M["Mock explanation<br/>'(MOCK API RESPONSE)'"]
-    B -->|real key| C["AsyncAnthropic.messages.create<br/>model: claude-3-5-sonnet<br/>max_tokens: 150"]
+    B -->|real key| C["AsyncAnthropic.messages.create<br/>model: claude-3-5-sonnet-20241022<br/>max_tokens: 150"]
     C --> D[Explanation string]
     M --> D
     D --> E[Store in alerts table]
@@ -528,16 +531,16 @@ flowchart LR
 
 ### Prerequisites
 
-You need three things installed:
+You need four things installed:
 
 | Tool | Version | Check |
-|---|---|---|
+| --- | --- | --- |
 | **Python** | 3.14+ | `python3 --version` |
 | **Node.js** | 20+ | `node --version` |
 | **PostgreSQL** | 14+ | `psql --version` |
 | **npm** | 10+ | `npm --version` |
 
-> 🪟 The backend venv ships with all Python dependencies pre-installed under `backend/venv/` — no `pip install` needed for first run.
+> 🪟 The backend venv ships with the core Python dependencies pre-installed under `backend/venv/` (FastAPI 0.137, asyncpg-backed `databases` 0.9, SQLAlchemy 2.0, Anthropic SDK 0.109). New contributors still need Postgres + Node on their machine.
 
 ### Clone & Enter
 
@@ -569,7 +572,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 You should see:
 
-```
+```text
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 INFO:     Started reloader process
 INFO:     Started server process
@@ -591,14 +594,14 @@ npm run dev
 
 You should see:
 
-```
+```text
    ▲ Next.js 16.2.9
    - Local:        http://localhost:3000
 ```
 
 ### 3. Open the App
 
-Visit **http://localhost:3000** in your browser.
+Visit **<http://localhost:3000>** in your browser.
 
 ---
 
@@ -607,17 +610,17 @@ Visit **http://localhost:3000** in your browser.
 ### 30-Second Walkthrough
 
 1. **Pick a mode** on the landing page — start with **Baseline** (cyan).
-2. Click **"Start Demo Session"** — this opens the candidate exam tab and routes your current tab to the admin dashboard.
-3. On the **exam tab**, click the red **"Trigger Tamper Action"** button.
-4. Switch back to the **admin tab**. You'll see a cyan log entry (`signal_received`) but **no alert card** — that's the silent failure.
-5. Click the **"Protected"** toggle in the topbar of the admin page.
+2. Click **"Start Demo Session"** — this opens the candidate exam tab in a new window and routes your current tab to the admin dashboard. (Your selected mode is also stashed in `localStorage` under `shadowaudit_mode` so the exam tab picks it up.)
+3. On the **exam tab**, click the red **"Trigger Tamper Action (Virtual Display Spoof)"** button.
+4. Switch back to the **admin tab**. You'll see a cyan log entry (`Incoming signal stream: display_config_anomaly`) but **no alert card** — that's the silent failure.
+5. Click the **"Baseline / Protected"** toggle in the topbar of the admin page.
 6. Go back to the exam tab and click **"Trigger Tamper Action"** again.
-7. Within ~2 seconds, the admin dashboard logs a **red line** and **slides in an alert card** with a Claude-written explanation.
+7. Within ~2 seconds, the admin dashboard logs a **red line** (`ANOMALY DETECTED: display_config_anomaly [Confidence: 0.94]`) and **slides in an alert card** with the Claude-written explanation. The status pill flips from green `Monitoring` to red `Alert Fired`.
 
 ### What You're Demonstrating
 
 | Step | What it proves |
-|---|---|
+| --- | --- |
 | Same exact action, two different outcomes | The detection layer is doing real work, not just decoration |
 | ~2-second latency | Detection is real-time, not post-hoc |
 | Plain-language alert | The AI layer adds value beyond raw signal data |
@@ -657,6 +660,7 @@ Base URL: `http://localhost:8000`
 Ingest a raw signal event from a candidate client.
 
 **Request body:**
+
 ```json
 {
   "mode": "protected",
@@ -671,25 +675,29 @@ Ingest a raw signal event from a candidate client.
 ```
 
 **Response:**
+
 ```json
 { "status": "received", "event_id": "a1b2c3d4-..." }
 ```
 
 **Side effects:**
+
 - Inserts a row into `signal_events`.
 - Broadcasts `signal_received` to all WebSocket clients.
-- **If `mode == "protected"`:** calls Claude, inserts an `alerts` row, and broadcasts `alert_fired`.
+- **If `payload.mode == "protected"`:** calls Claude, inserts an `alerts` row (severity is hard-coded to `high` in this PoC), and broadcasts `alert_fired`.
 
 #### `PATCH /sessions/{session_id}/mode`
 
 Update a session's operating mode mid-session.
 
 **Request body:**
+
 ```json
 { "mode": "protected" }
 ```
 
 **Response:**
+
 ```json
 { "status": "updated", "mode": "protected" }
 ```
@@ -701,11 +709,15 @@ Update a session's operating mode mid-session.
 Persistent duplex connection. Server pushes JSON events; clients can send anything (kept alive, currently ignored).
 
 **Event: `signal_received`**
+
 ```json
 { "event": "signal_received", "signal_type": "display_config_anomaly" }
 ```
 
+> Note: the `signal_received` payload is the literal `{event, signal_type}` object above. The richer `{session_id, timestamp, …}` envelope only appears on `alert_fired`.
+
 **Event: `alert_fired`**
+
 ```json
 {
   "event": "alert_fired",
@@ -811,18 +823,15 @@ CREATE TABLE alerts (
     severity VARCHAR(20) NOT NULL DEFAULT 'medium',
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
-CREATE INDEX idx_signal_events_session ON signal_events(session_id, detected_at);
-CREATE INDEX idx_alerts_session ON alerts(session_id, created_at);
 ```
 
-> 📝 **Spec-vs-impl note:** The original spec calls for `UUID` columns with `gen_random_uuid()`. The implementation uses `VARCHAR` PKs populated by `uuid.uuid4()` on the application side, which works identically with Postgres.
+> 📝 **Spec-vs-impl note:** The original spec calls for `UUID` columns with `gen_random_uuid()`. The implementation uses `String` PKs populated by `uuid.uuid4()` on the application side, which works identically with Postgres. The SQL shown above reflects what `metadata.create_all(engine)` actually emits; SQLAlchemy generates the `CREATE INDEX` statements for any declared indexes (none are declared in the current models, so the indexes shown above are *spec-intended* rather than emitted).
 
 ---
 
 ## 15. Project Structure
 
-```
+```text
 ShadowAudit/
 ├── 📄 shadowaudit.md          ← Original project spec (PRD · TRD · AI · UI · Schema · Plan · Demo)
 ├── 📄 README.md               ← You are here
@@ -833,18 +842,23 @@ ShadowAudit/
 │   ├── models.py              ← Pydantic request/response schemas
 │   ├── ai_service.py          ← AsyncAnthropic client + system prompt + mock fallback
 │   ├── .env.example           ← DATABASE_URL + ANTHROPIC_API_KEY template
+│   ├── .gitignore             ← Excludes venv/, .env, __pycache__
 │   └── venv/                  ← Pre-installed Python virtualenv
 │
-└── ⚛️  frontend/               ← Next.js 16 · React 19 · TypeScript
+└── ⚛️  frontend/               ← Next.js 16.2.9 · React 19.2.4 · TypeScript
     ├── package.json
     ├── tsconfig.json
     ├── next.config.ts
     ├── eslint.config.mjs
+    ├── next-env.d.ts
     ├── AGENTS.md              ← ⚠️ "This is NOT the Next.js you know" — read before editing
     ├── CLAUDE.md              ← @AGENTS.md
+    ├── public/                ← Static SVGs shipped with the Next.js starter
     └── src/app/
         ├── layout.tsx         ← Root layout: fonts + metadata
         ├── globals.css        ← Design tokens + components + animations
+        ├── page.module.css    ← Default starter CSS module (unused by the demo)
+        ├── favicon.ico
         ├── page.tsx           ← Landing / Mode Selector
         ├── admin/
         │   └── page.tsx       ← Live dashboard: terminal + alert card
@@ -855,7 +869,7 @@ ShadowAudit/
 ### Where to Look First
 
 | If you want to understand… | Open this file |
-|---|---|
+| --- | --- |
 | The product idea and scope | `shadowaudit.md` |
 | How the API works | `backend/main.py` |
 | How the database is shaped | `backend/database.py` |
@@ -918,13 +932,13 @@ This project intentionally uses Next.js 16, which has breaking changes from earl
 <details>
 <summary><b>🔴 "relation does not exist" on first signal</b></summary>
 
-The `init_db()` call creates tables on startup, but only after the first request reaches the server. If you start the backend *after* Postgres for the first time, just hit any endpoint once (e.g. the OpenAPI docs at `/docs`) and the schema will be created.
+The `init_db()` call runs from FastAPI's `@app.on_event("startup")` hook, so tables are created as soon as `uvicorn` boots — **before** the first request. If you still see this error, confirm the user in `DATABASE_URL` owns the database and that `shadowaudit` exists (`createdb shadowaudit`).
 
 </details>
 
 ---
 
-## 17. ⚠️ Responsible Disclosure
+## 17. Responsible Disclosure
 
 This is the **most important section** of the README. Please read it before sharing this project publicly.
 
@@ -974,18 +988,19 @@ No license file is currently included. **All rights reserved** until a license i
 
 Built with:
 
-- ⚛️ [Next.js 16](https://nextjs.org/) · React 19 · TypeScript
-- 🐍 [FastAPI](https://fastapi.tiangolo.com/) · Python 3.14 · Pydantic
+- ⚛️ [Next.js 16.2.9](https://nextjs.org/) · React 19.2.4 · TypeScript 5
+- 🐍 [FastAPI](https://fastapi.tiangolo.com/) · Python 3.14.5 · Pydantic
 - 💾 [PostgreSQL](https://www.postgresql.org/) · SQLAlchemy · asyncpg
 - 🧠 [Anthropic Claude](https://www.anthropic.com/) (model: `claude-3-5-sonnet-20241022`)
 
 ### Spec-vs-Implementation Drift (for reviewers)
 
 | Spec says | Code does | Impact |
-|---|---|---|
-| `UUID` PKs with `gen_random_uuid()` | `VARCHAR` PKs with app-side `uuid.uuid4()` | None — works identically |
+| --- | --- | --- |
+| `UUID` PKs with `gen_random_uuid()` | `String` PKs (rendered as `VARCHAR`) with app-side `uuid.uuid4()` | None — works identically |
 | `claude-sonnet-4-6` | `claude-3-5-sonnet-20241022` | Use whichever is available; update one line in `ai_service.py` |
-| `POST /sessions` to start a session | Session auto-created on first signal | Smaller surface; still demo-able |
+| Spec lists `idx_signal_events_session` + `idx_alerts_session` indexes | `metadata.create_all(engine)` doesn't emit them — model has no `Index()` declarations | Tables query fine for PoC scale; add indexes before any production traffic |
+| `POST /sessions` to start a session | Session auto-created on first signal or `PATCH /sessions/{id}/mode` | Smaller surface; still demo-able |
 | `GET /sessions/{id}/alerts` for history | Not implemented (admin relies on WS only) | Could be added later |
 
 ---
