@@ -23,7 +23,7 @@
 
 > **What this is, in one line:** A vulnerability-research proof-of-concept that detects a specific class of proctoring-signal tampering in real time, then explains the detection in plain language using Claude.
 >
-> **What this is not:** A tool to bypass any real commercial proctoring product. See [⚠️ Responsible Disclosure](#17-responsible-disclosure).
+> **What this is not:** A tool to bypass any real commercial proctoring product. See [⚠️ Responsible Disclosure](#17-%EF%B8%8F-responsible-disclosure).
 
 </div>
 
@@ -33,83 +33,7 @@
 
 <div align="center">
 
-<svg viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" role="img" aria-label="Animated ShadowAudit hero diagram">
-
-  <defs>
-    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0a0c"/>
-      <stop offset="100%" stop-color="#131316"/>
-    </linearGradient>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-
-  <rect width="800" height="220" fill="url(#bgGrad)" rx="8"/>
-
-  <!-- Candidate source (left) -->
-  <g transform="translate(40,110)">
-    <circle r="22" fill="#131316" stroke="#232328" stroke-width="2"/>
-    <text y="6" text-anchor="middle" font-family="monospace" font-size="11" fill="#e8e8ec">USER</text>
-    <text y="50" text-anchor="middle" font-family="monospace" font-size="10" fill="#6b6b76">candidate</text>
-  </g>
-
-  <!-- Backend (center) -->
-  <g transform="translate(400,110)">
-    <rect x="-60" y="-30" width="120" height="60" rx="6" fill="#131316" stroke="#00e5ff" stroke-width="2"/>
-    <text y="-6" text-anchor="middle" font-family="monospace" font-size="11" fill="#e8e8ec">DETECTION</text>
-    <text y="10" text-anchor="middle" font-family="monospace" font-size="11" fill="#e8e8ec">ENGINE</text>
-    <text y="50" text-anchor="middle" font-family="monospace" font-size="10" fill="#6b6b76">FastAPI</text>
-
-    <circle cx="0" cy="0" r="0" fill="#00e5ff" opacity="0.6">
-      <animate attributeName="r" values="0;80;0" dur="2.4s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.6;0;0.6" dur="2.4s" repeatCount="indefinite"/>
-    </circle>
-  </g>
-
-  <!-- Claude (top right) -->
-  <g transform="translate(700,55)">
-    <rect x="-55" y="-22" width="110" height="44" rx="6" fill="#131316" stroke="#a855f7" stroke-width="2"/>
-    <text y="-3" text-anchor="middle" font-family="monospace" font-size="11" fill="#e8e8ec">CLAUDE</text>
-    <text y="13" text-anchor="middle" font-family="monospace" font-size="10" fill="#a855f7">explains it</text>
-  </g>
-
-  <!-- Admin dashboard (bottom right) -->
-  <g transform="translate(700,170)">
-    <rect x="-55" y="-22" width="110" height="44" rx="6" fill="#131316" stroke="#ff4d6d" stroke-width="2"/>
-    <text y="-3" text-anchor="middle" font-family="monospace" font-size="11" fill="#e8e8ec">ADMIN</text>
-    <text y="13" text-anchor="middle" font-family="monospace" font-size="10" fill="#ff4d6d">dashboard</text>
-  </g>
-
-  <!-- Signal arrow (User → Backend) -->
-  <line x1="70" y1="110" x2="335" y2="110" stroke="#00e5ff" stroke-width="2" filter="url(#glow)"/>
-  <line x1="70" y1="110" x2="335" y2="110" stroke="#00e5ff" stroke-width="2" stroke-dasharray="6 10">
-    <animate attributeName="stroke-dashoffset" from="0" to="-32" dur="0.8s" repeatCount="indefinite"/>
-  </line>
-
-  <!-- Trigger packet -->
-  <g filter="url(#glow)">
-    <circle r="6" fill="#00e5ff">
-      <animate attributeName="cx" values="70;335" dur="1.6s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="110;110" dur="1.6s" repeatCount="indefinite"/>
-    </circle>
-  </g>
-
-  <!-- Backend → Claude -->
-  <path d="M 400 80 Q 550 50 645 55" stroke="#a855f7" stroke-width="2" fill="none" filter="url(#glow)"/>
-  <circle r="5" fill="#a855f7" filter="url(#glow)">
-    <animateMotion dur="1.8s" repeatCount="indefinite" path="M 400 80 Q 550 50 645 55"/>
-  </circle>
-
-  <!-- Backend → Dashboard -->
-  <path d="M 400 140 Q 550 170 645 170" stroke="#ff4d6d" stroke-width="2" fill="none" filter="url(#glow)"/>
-  <circle r="5" fill="#ff4d6d" filter="url(#glow)">
-    <animateMotion dur="1.4s" repeatCount="indefinite" path="M 400 140 Q 550 170 645 170"/>
-  </circle>
-
-  <text x="400" y="30" text-anchor="middle" font-family="monospace" font-size="13" fill="#6b6b76">SIGNAL FLOW</text>
-</svg>
+<img src="docs/assets/signal-flow.svg" alt="Animated ShadowAudit signal flow diagram" width="100%"/>
 
 </div>
 
@@ -125,7 +49,7 @@
 | 🚨 [2. The Problem](#2-the-problem--why-this-matters) | 🔄 [8. Data Flow](#8-data-flow--step-by-step) | 🗄️ [14. Database Schema](#14-database-schema) |
 | 💡 [3. The Solution](#3-the-solution--what-we-built) | 🎬 [9. The Two Modes](#9-the-two-modes--baseline-vs-protected) | 📁 [15. Project Structure](#15-project-structure) |
 | 🎯 [4. User Story](#4-user-story) | 🧠 [10. The AI Layer](#10-the-ai-layer--claude-integration) | 🛠️ [16. Troubleshooting](#16-troubleshooting) |
-| ✨ [5. Features](#5-features-at-a-glance) | 🚀 [11. Getting Started](#11-getting-started) | ⚠️ [17. Responsible Disclosure](#17-responsible-disclosure) |
+| ✨ [5. Features](#5-features-at-a-glance) | 🚀 [11. Getting Started](#11-getting-started) | ⚠️ [17. Responsible Disclosure](#17-%EF%B8%8F-responsible-disclosure) |
 | 📐 [6. Scope Lock](#6-scope-lock) | 🧪 [12. Run the Demo](#12-run-the-demo) | 📜 [18. License & Credits](#18-license--credits) |
 
 ---
@@ -167,7 +91,7 @@ The **silent integrity gap** is this: most proctoring systems *trust the signal 
 ```mermaid
 flowchart LR
     A[🎓 Candidate] -->|spoofs signal| B[💻 Proctoring Tool]
-    B -->|"all clean ✓"| C[📊 Admin Dashboard]
+    B -->|all clean ✓| C[📊 Admin Dashboard]
     style A fill:#ff4d6d,color:#fff
     style B fill:#232328,color:#e8e8ec
     style C fill:#131316,color:#39ff88
@@ -197,7 +121,7 @@ flowchart TB
 
     A -->|signal arrives| C
     B -.spoofs.-> A
-    C -->|"if protected mode"| D
+    C -->|if protected mode| D
     D -->|1-2 sentence explanation| E
     C -->|real-time event| E
 
@@ -234,7 +158,7 @@ This is the entire product in one sentence. Every screen, every endpoint, and ev
 | 🛡️ **Offline-tolerant** | Works on a local network — no dependency on judge WiFi or external services (mock AI mode). |
 | 🧱 **No bypass in public** | Tamper-trigger code can be gated behind an env var; default builds are detection-only. |
 
-> ⚠️ **Honest framing:** This PoC ships a "Trigger Tamper" button directly in the candidate UI (`/exam`) and does *not* ship a feature-flag gate by default. Treat that button as a demo control, not production code. See [⚠️ Responsible Disclosure](#17-responsible-disclosure).
+> ⚠️ **Honest framing:** This PoC ships a "Trigger Tamper" button directly in the candidate UI (`/exam`) and does *not* ship a feature-flag gate by default. Treat that button as a demo control, not production code. See [⚠️ Responsible Disclosure](#17-%EF%B8%8F-responsible-disclosure).
 
 ---
 
@@ -260,13 +184,13 @@ This is a hackathon PoC, not a commercial product. Scope discipline keeps the de
 
 ```mermaid
 flowchart TB
-    subgraph Frontend["🖥️  Frontend  (Next.js 16 · React 19 · TypeScript)"]
+    subgraph Frontend["🖥️  Frontend  (Next.js 16.2.9 · React 19.2.4 · TypeScript 5)"]
         L["🏠 Landing / Mode Selector<br/>/page.tsx"]
         E["📝 Candidate Mock Exam<br/>/exam/page.tsx<br/>+ tamper trigger"]
         A["📊 Admin Live Dashboard<br/>/admin/page.tsx<br/>WebSocket client"]
     end
 
-    subgraph Backend["⚙️  Backend  (FastAPI · Python 3.14 · async)"]
+    subgraph Backend["⚙️  Backend  (FastAPI 0.137.1 · Python 3.14.5 · async)"]
         R["🌐 HTTP Routes<br/>POST /sessions/{id}/signals<br/>PATCH /sessions/{id}/mode"]
         W["🔌 WebSocket Hub<br/>/ws/sessions/{id}"]
         D["🔍 Detection Layer<br/>if payload.mode == protected"]
@@ -303,10 +227,10 @@ flowchart TB
 
 | Layer | Tech | Files | Why |
 | --- | --- | --- | --- |
-| **Frontend** | Next.js 16 (App Router), React 19, TypeScript | `frontend/src/app/` | Two views: candidate (mock exam) + admin (live dashboard) |
-| **Backend** | FastAPI 0.137, async/await | `backend/main.py` | HTTP routes + WebSocket hub + detection trigger |
-| **Database** | PostgreSQL via `databases` + `asyncpg` | `backend/database.py` | Three tables: `sessions`, `signal_events`, `alerts` |
-| **AI** | Anthropic Python SDK (`AsyncAnthropic`) | `backend/ai_service.py` | Translates raw signal → 1-2 sentence explanation |
+| **Frontend** | Next.js 16.2.9 (App Router), React 19.2.4, TypeScript 5 | `frontend/src/app/` | Two views: candidate (mock exam) + admin (live dashboard) |
+| **Backend** | FastAPI 0.137.1 + uvicorn 0.49, async/await | `backend/main.py` | HTTP routes + WebSocket hub + detection trigger |
+| **Database** | PostgreSQL via `databases` 0.9 + asyncpg 0.31 + SQLAlchemy 2.0.51 | `backend/database.py` | Three tables: `sessions`, `signal_events`, `alerts` |
+| **AI** | Anthropic Python SDK 0.109 (`AsyncAnthropic`) | `backend/ai_service.py` | Translates raw signal → 1-2 sentence explanation |
 | **Realtime** | Native FastAPI WebSocket | `backend/main.py::websocket_endpoint` | Pushes `signal_received` + `alert_fired` events |
 
 ---
@@ -334,14 +258,14 @@ sequenceDiagram
     Note right of ADM: 🟢 Status: Monitoring<br/>No card appears
 
     Note over U,ADM: Admin flips to Protected mode
-    ADM->>API: PATCH /sessions/{id}/mode<br/>{mode: "protected"}
+    ADM->>API: PATCH /sessions/{id}/mode<br/>{mode: protected}
     API->>DB: UPDATE sessions.mode
 
     Note over U,ADM: Same tamper, again (payload.mode=protected)
     U->>API: POST signal (protected)
     API->>DB: INSERT signal_events
     API->>AI: generate_alert_explanation(...)
-    AI-->>API: "A secondary display was detected<br/>partway through this session..."
+    AI-->>API: A secondary display was detected<br/>partway through this session...
     API->>DB: INSERT alerts (severity=high)
     API->>WS: broadcast alert_fired
     WS-->>ADM: ws.send(event=alert_fired)
@@ -382,7 +306,7 @@ stateDiagram-v2
     state Baseline {
         [*] --> B1: session started
         B1 --> B2: tamper triggered
-        B2 --> B3: log "signal_received" (cyan)
+        B2 --> B3: log signal_received (cyan)
         B3 --> [*]
     }
 
@@ -400,59 +324,9 @@ stateDiagram-v2
 
 ### Side-by-side visual
 
-<svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" role="img" aria-label="Side-by-side comparison of baseline and protected modes">
+<div align="center">
 
-  <rect width="800" height="280" fill="#0a0a0c" rx="8"/>
-
-  <!-- Baseline panel -->
-  <g transform="translate(20,30)">
-    <rect width="370" height="220" rx="8" fill="#131316" stroke="#00e5ff" stroke-width="1.5"/>
-    <text x="185" y="28" text-anchor="middle" font-family="monospace" font-size="14" fill="#00e5ff">🔵 BASELINE MODE</text>
-    <text x="185" y="48" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6b6b76">trust the signal — nothing happens</text>
-
-    <g transform="translate(110,80)">
-      <rect width="150" height="36" rx="4" fill="#0a0a0c" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <text x="75" y="22" text-anchor="middle" font-family="monospace" font-size="11" fill="#ff4d6d">TRIGGER TAMPER</text>
-      <circle cx="75" cy="18" r="2" fill="#ff4d6d">
-        <animate attributeName="r" values="2;30;30" dur="1.5s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.8;0;0" dur="1.5s" repeatCount="indefinite"/>
-      </circle>
-    </g>
-
-    <g transform="translate(20,150)">
-      <rect width="330" height="50" rx="4" fill="#000"/>
-      <text x="10" y="18" font-family="monospace" font-size="10" fill="#6b6b76">[14:32:01]</text>
-      <text x="10" y="35" font-family="monospace" font-size="10" fill="#00e5ff">signal_received: display_config_anomaly</text>
-    </g>
-  </g>
-
-  <text x="400" y="148" text-anchor="middle" font-family="monospace" font-size="20" fill="#a855f7">VS</text>
-
-  <!-- Protected panel -->
-  <g transform="translate(410,30)">
-    <rect width="370" height="220" rx="8" fill="#131316" stroke="#39ff88" stroke-width="1.5"/>
-    <text x="185" y="28" text-anchor="middle" font-family="monospace" font-size="14" fill="#39ff88">🟢 PROTECTED MODE</text>
-    <text x="185" y="48" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6b6b76">detect the tamper — alert fires</text>
-
-    <g transform="translate(110,80)">
-      <rect width="150" height="36" rx="4" fill="#0a0a0c" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="4 3"/>
-      <text x="75" y="22" text-anchor="middle" font-family="monospace" font-size="11" fill="#ff4d6d">TRIGGER TAMPER</text>
-      <circle cx="75" cy="18" r="2" fill="#ff4d6d">
-        <animate attributeName="r" values="2;30;30" dur="1.5s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.8;0;0" dur="1.5s" repeatCount="indefinite"/>
-      </circle>
-    </g>
-
-    <g transform="translate(20,150)">
-      <rect x="20" y="150" width="330" height="50" rx="4" fill="#0a0a0c" stroke="#ff4d6d" stroke-width="2">
-        <animate attributeName="x" values="-10;20" dur="0.4s" fill="freeze"/>
-      </rect>
-      <rect x="20" y="150" width="3" height="50" fill="#ff4d6d"/>
-      <text x="40" y="170" font-family="monospace" font-size="10" fill="#ff4d6d">⚠ ALERT FIRED · conf 94%</text>
-      <text x="40" y="186" font-family="sans-serif" font-size="10" fill="#e8e8ec">"secondary display detected..."</text>
-    </g>
-  </g>
-</svg>
+<img src="docs/assets/baseline-vs-protected.svg" alt="Side-by-side comparison of baseline and protected modes" width="100%"/>
 
 </div>
 
@@ -509,8 +383,8 @@ If `ANTHROPIC_API_KEY` is missing or set to `"mock"`, the service returns a dete
 ```mermaid
 flowchart LR
     A[Signal fired] --> B{ANTHROPIC_API_KEY?}
-    B -->|missing or "mock"| M["Mock explanation<br/>'(MOCK API RESPONSE)'"]
-    B -->|real key| C["AsyncAnthropic.messages.create<br/>model: claude-3-5-sonnet-20241022<br/>max_tokens: 150"]
+    B -->|missing or mock| M["Mock explanation (MOCK API RESPONSE)"]
+    B -->|real key| C["AsyncAnthropic.messages.create model: claude-3-5-sonnet-20241022 max_tokens: 150"]
     C --> D[Explanation string]
     M --> D
     D --> E[Store in alerts table]
@@ -540,7 +414,7 @@ You need four things installed:
 | **PostgreSQL** | 14+ | `psql --version` |
 | **npm** | 10+ | `npm --version` |
 
-> 🪟 The backend venv ships with the core Python dependencies pre-installed under `backend/venv/` (FastAPI 0.137, asyncpg-backed `databases` 0.9, SQLAlchemy 2.0, Anthropic SDK 0.109). New contributors still need Postgres + Node on their machine.
+> 🪟 The backend venv ships with the core Python dependencies pre-installed under `backend/venv/` (FastAPI 0.137.1, uvicorn 0.49, asyncpg 0.31, `databases` 0.9, SQLAlchemy 2.0.51, psycopg2-binary 2.9, Pydantic 2.13, Anthropic SDK 0.109, python-dotenv 1.2). New contributors still need Postgres + Node on their machine.
 
 ### Clone & Enter
 
@@ -836,7 +710,11 @@ ShadowAudit/
 ├── 📄 shadowaudit.md          ← Original project spec (PRD · TRD · AI · UI · Schema · Plan · Demo)
 ├── 📄 README.md               ← You are here
 │
-├── 🐍 backend/                ← FastAPI · Python 3.14
+├── 📂 docs/assets/             ← SVG diagrams referenced by README
+│   ├── signal-flow.svg        ← Animated hero: candidate → engine → Claude → admin
+│   └── baseline-vs-protected.svg ← Side-by-side mode comparison
+│
+├── 🐍 backend/                ← FastAPI 0.137.1 · Python 3.14.5
 │   ├── main.py                ← App entry: routes + WebSocket + lifecycle
 │   ├── database.py            ← SQLAlchemy schema + async Database handle
 │   ├── models.py              ← Pydantic request/response schemas
@@ -938,7 +816,7 @@ The `init_db()` call runs from FastAPI's `@app.on_event("startup")` hook, so tab
 
 ---
 
-## 17. Responsible Disclosure
+## 17. ⚠️ Responsible Disclosure
 
 This is the **most important section** of the README. Please read it before sharing this project publicly.
 

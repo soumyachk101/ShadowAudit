@@ -1,0 +1,53 @@
+<svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" width="800" height="280" role="img" aria-label="Side-by-side comparison of baseline and protected modes">
+
+  <rect width="800" height="280" fill="#0a0a0c" rx="8"/>
+
+  <!-- Baseline panel -->
+  <g transform="translate(20,30)">
+    <rect width="370" height="220" rx="8" fill="#131316" stroke="#00e5ff" stroke-width="1.5"/>
+    <text x="185" y="28" text-anchor="middle" font-family="monospace" font-size="14" fill="#00e5ff">BASELINE MODE</text>
+    <text x="185" y="48" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6b6b76">trust the signal — nothing happens</text>
+
+    <g transform="translate(110,80)">
+      <rect width="150" height="36" rx="4" fill="#0a0a0c" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="75" y="22" text-anchor="middle" font-family="monospace" font-size="11" fill="#ff4d6d">TRIGGER TAMPER</text>
+      <circle cx="75" cy="18" r="2" fill="#ff4d6d">
+        <animate attributeName="r" values="2;30;30" dur="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0;0" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(20,150)">
+      <rect width="330" height="50" rx="4" fill="#000"/>
+      <text x="10" y="18" font-family="monospace" font-size="10" fill="#6b6b76">[14:32:01]</text>
+      <text x="10" y="35" font-family="monospace" font-size="10" fill="#00e5ff">signal_received: display_config_anomaly</text>
+    </g>
+  </g>
+
+  <text x="400" y="148" text-anchor="middle" font-family="monospace" font-size="20" fill="#a855f7">VS</text>
+
+  <!-- Protected panel -->
+  <g transform="translate(410,30)">
+    <rect width="370" height="220" rx="8" fill="#131316" stroke="#39ff88" stroke-width="1.5"/>
+    <text x="185" y="28" text-anchor="middle" font-family="monospace" font-size="14" fill="#39ff88">PROTECTED MODE</text>
+    <text x="185" y="48" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6b6b76">detect the tamper — alert fires</text>
+
+    <g transform="translate(110,80)">
+      <rect width="150" height="36" rx="4" fill="#0a0a0c" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="75" y="22" text-anchor="middle" font-family="monospace" font-size="11" fill="#ff4d6d">TRIGGER TAMPER</text>
+      <circle cx="75" cy="18" r="2" fill="#ff4d6d">
+        <animate attributeName="r" values="2;30;30" dur="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0;0" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(20,150)">
+      <rect x="20" y="150" width="330" height="50" rx="4" fill="#0a0a0c" stroke="#ff4d6d" stroke-width="2">
+        <animate attributeName="x" values="-10;20" dur="0.4s" fill="freeze"/>
+      </rect>
+      <rect x="20" y="150" width="3" height="50" fill="#ff4d6d"/>
+      <text x="40" y="170" font-family="monospace" font-size="10" fill="#ff4d6d">ALERT FIRED - conf 94%</text>
+      <text x="40" y="186" font-family="sans-serif" font-size="10" fill="#e8e8ec">secondary display detected...</text>
+    </g>
+  </g>
+</svg>
